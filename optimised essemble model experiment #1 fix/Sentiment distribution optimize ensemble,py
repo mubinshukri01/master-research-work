@@ -1,0 +1,193 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import re
+
+# =====================================================
+# LOAD DATA
+# =====================================================
+file_path = "Final experiment\\Mubin Master Finalize experiment.xlsx"
+sheet_name = "Sentiment distibution optimized"
+
+df = pd.read_excel(file_path, sheet_name=sheet_name)
+
+# =====================================================
+# HUMAN DISTRIBUTION (Gold Standard)
+# =====================================================
+human = {
+    "Negative": (4239, 42.7),
+    "Neutral":  (2514, 25.3),
+    "Positive": (3085, 31.2)
+}
+
+labels = ["Human"]
+
+neg_pct = [human["Negative"][1]]
+neu_pct = [human["Neutral"][1]]
+pos_pct = [human["Positive"][1]]
+
+neg_count = [human["Negative"][0]]
+neu_count = [human["Neutral"][0]]
+pos_count = [human["Positive"][0]]
+
+# =====================================================
+# READ EXPERIMENTS
+# =====================================================
+current_epoch = None
+current_alpha = None
+
+for i in range(0, len(df), 3):
+
+    std = str(df.loc[i, "Standardization"])
+
+    epoch = re.search(r"epoch\s*=\s*(\d+)", std, re.I)
+    alpha = re.search(r"alpha\s*=?\s*([\d.]+)", std, re.I)
+
+    epoch = epoch.group(1)
+    alpha = alpha.group(1)
+
+    labels.append(f"E{epoch}\nα={alpha}")
+
+    # Negative
+    neg_count.append(df.loc[i, "Model_Count"])
+    neg_pct.append(df.loc[i, "Model_Percentage"])
+
+    # Neutral
+    neu_count.append(df.loc[i+1, "Model_Count"])
+    neu_pct.append(df.loc[i+1, "Model_Percentage"])
+
+    # Positive
+    pos_count.append(df.loc[i+2, "Model_Count"])
+    pos_pct.append(df.loc[i+2, "Model_Percentage"])
+
+neg_pct = np.array(neg_pct)
+neu_pct = np.array(neu_pct)
+pos_pct = np.array(pos_pct)
+
+# =====================================================
+# PLOT
+# =====================================================
+fig, ax = plt.subplots(figsize=(15,6))
+
+x = np.arange(len(labels))
+width = 0.82
+
+ax.bar(x,
+       neg_pct,
+       width,
+       color="#ff0000",
+       edgecolor="white",
+       linewidth=0.5,
+       label="Negative")
+
+ax.bar(x,
+       neu_pct,
+       width,
+       bottom=neg_pct,
+       color="#9e9e9e",
+       edgecolor="white",
+       linewidth=0.5,
+       label="Neutral")
+
+ax.bar(x,
+       pos_pct,
+       width,
+       bottom=neg_pct+neu_pct,
+       color="#008000",
+       edgecolor="white",
+       linewidth=0.5,
+       label="Positive")
+
+# =====================================================
+# LABELS INSIDE BARS
+# =====================================================
+for i in range(len(x)):
+
+    ax.text(
+        x[i],
+        neg_pct[i]/2,
+        f"{neg_pct[i]:.1f}%\n({neg_count[i]})",
+        ha="center",
+        va="center",
+        color="black",
+        fontsize=20,
+        fontweight="bold"
+    )
+
+    ax.text(
+        x[i],
+        neg_pct[i]+neu_pct[i]/2,
+        f"{neu_pct[i]:.1f}%\n({neu_count[i]})",
+        ha="center",
+        va="center",
+        color="black",
+        fontsize=20,
+        fontweight="bold"
+    )
+
+    ax.text(
+        x[i],
+        neg_pct[i]+neu_pct[i]+pos_pct[i]/2,
+        f"{pos_pct[i]:.1f}%\n({pos_count[i]})",
+        ha="center",
+        va="center",
+        color="black",
+        fontsize=20,
+        fontweight="bold"
+    )
+
+# =====================================================
+# AXES
+# =====================================================
+ax.set_ylim(0,100)
+ax.set_ylabel("Percentage of Instances (%)", fontsize=22)
+
+ax.set_xticks(x)
+ax.set_xticklabels(labels, fontsize=20)
+
+ax.set_title("Optimized Ensemble Sentiment Distribution by Ensemble Family",
+             fontsize=22,
+             weight="bold")
+
+# =====================================================
+# GROUP SEPARATOR
+# =====================================================
+ax.axvline(6.5,
+           color="black",
+           linestyle="--",
+           linewidth=3)
+
+# =====================================================
+# FAMILY LABELS
+# =====================================================
+ax.text(3.5,
+        -20,
+        "NLP+GRU + BERT+CNN",
+        ha="center",
+        fontsize=20,
+        fontweight="bold")
+
+ax.text(10,
+        -20,
+        "NLP+GRU + BERT+LSTM",
+        ha="center",
+        fontsize=20,
+        fontweight="bold")
+
+# =====================================================
+# GRID & LEGEND
+# =====================================================
+ax.grid(axis="y",
+        linestyle="--",
+        alpha=0.35)
+
+ax.legend(
+    loc="upper center",
+    bbox_to_anchor=(0.5,1.2),
+    ncol=3,
+    frameon=False,
+    fontsize=20
+)
+
+plt.tight_layout()
+plt.show()

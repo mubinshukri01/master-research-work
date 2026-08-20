@@ -1,0 +1,58 @@
+{
+  "gru": {
+    "config": {
+      "vocab_size": 30000,
+      "max_len": 80,
+      "embed_dim": 200,
+      "hidden_dim": 64,
+      "num_layers": 2,
+      "bidirectional": false,
+      "pooling": "meanmax",
+      "dropout": 0.2,
+      "batch_size": 16,
+      "weight_decay": 0.0001,
+      "class_weight": "balanced",
+      "grad_clip": 1.0,
+      "lr": 0.002499466392531643,
+      "rnn_dropout": 0.2
+    },
+    "checkpoint": "base essemble model experiment #1 (BERT + CNN & NLP + GRU)/optimized essemble model experiment/tuned GRU keras model/V3\\gru_best.pt",
+    "val_macro_f1": 0.5811338110658805
+  },
+  "cnn_bert": {
+    "config": {
+      "max_len": 96,
+      "batch_size": 16,
+      "num_filters": 64,
+      "kernel_sizes": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "dropout": 0.2,
+      "freeze_layers": 8,
+      "weight_decay": 0.01,
+      "warmup_ratio": 0.1,
+      "class_weight": "balanced",
+      "grad_clip": 0.0,
+      "lr_bert": 1.4645055034892938e-05,
+      "lr_head": 0.000116065587347391
+    },
+    "checkpoint": "base essemble model experiment #1 (BERT + CNN & NLP + GRU)/optimized essemble model experiment/tuned CNN BERT model/V3\\cnn_bert_best.pt",
+    "val_macro_f1": 0.615485448194287
+  },
+  "fusion": {
+    "alpha": 0.55,
+    "beta": 0.44999999999999996,
+    "T_cnn": 0.75,
+    "T_gru": 1.25,
+    "selected_on": "validation macro-F1",
+    "val_macro_f1": 0.6318308639808944
+  },
+  "test": {
+    "accuracy": 0.6727642276422764,
+    "macro_f1": 0.6663616133916195,
+    "weighted_f1": 0.6727135888469211
+  }
+}

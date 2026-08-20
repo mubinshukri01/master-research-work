@@ -1,0 +1,27 @@
+LEGACY RESULTS - SUPERSEDED
+===========================
+
+These workbooks and figures came from "experiment V1 (base ensemble model).py",
+which predates the canonical split. It calls train_test_split() itself while
+loading branch checkpoints trained on a different partition of the same rows, so
+its test set overlaps the branches' training data.
+
+The many near-duplicate files here (DRSE_Ensemble_Results.xlsx,
+DRSE_Ensemble_Results2..5.xlsx, DRSE_Calibrated_Results*.xlsx) are successive
+re-runs during development, not distinct experiments. There is no record of
+which run corresponds to which configuration.
+
+USE INSTEAD
+-----------
+    ../Version 2 results/Base_Ensemble_Results.xlsx
+        experiment V2 (base ensemble model) .py, canonical split
+        -> 0.6341 accuracy / 0.6218 macro-F1
+
+    ../Version 3 tuned results/Tuned_Ensemble_Results.xlsx
+        experiment V3 (tuned ensemble model).py, canonical split, tuned branches
+        -> 0.6728 accuracy / 0.6664 macro-F1   (best result in the project)
+
+    ../../../RESULTS_CONSOLIDATED.xlsx
+        every result in one table, leakage-safe rows separated from legacy
+
+Kept for provenance only. See ../../../README.md for the full explanation.

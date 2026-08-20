@@ -1,0 +1,28 @@
+{
+  "branch": "gru",
+  "best_val_macro_f1": 0.45583749162696535,
+  "best_epoch": 1,
+  "params": {
+    "seed": 42,
+    "vocab": 20000,
+    "max_len": 50,
+    "embed_dim": 200,
+    "hidden": 256,
+    "layers": 2,
+    "bidirectional": true,
+    "dropout": 0.09170225492671691,
+    "lr": 0.0007060886961125453,
+    "weight_decay": 0.0001256104370001356,
+    "batch": 32,
+    "loss": "weighted_ce",
+    "gamma": 1.7327236865873834
+  },
+  "n_trials": 1,
+  "epochs_per_trial": 1,
+  "label_names": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "smoke": true
+}

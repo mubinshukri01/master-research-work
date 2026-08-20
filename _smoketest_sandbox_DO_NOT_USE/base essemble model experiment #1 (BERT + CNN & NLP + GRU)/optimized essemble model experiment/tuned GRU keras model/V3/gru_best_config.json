@@ -1,0 +1,118 @@
+{
+  "branch": "GRU + Keras Word Tokenizer",
+  "trial": 1,
+  "config": {
+    "vocab_size": 10000,
+    "max_len": 80,
+    "embed_dim": 200,
+    "hidden_dim": 128,
+    "num_layers": 1,
+    "bidirectional": true,
+    "pooling": "last",
+    "dropout": 0.3,
+    "batch_size": 16,
+    "weight_decay": 0.0,
+    "class_weight": "balanced",
+    "grad_clip": 1.0,
+    "lr": 0.0019640544459862217,
+    "rnn_dropout": 0.0
+  },
+  "num_classes": 3,
+  "label_names": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "val_macro_f1": 0.46778228532792426,
+  "val_acc": 0.4666666666666667,
+  "val_loss": 1.0938712358474731,
+  "best_epoch": 1,
+  "checkpoint": "base essemble model experiment #1 (BERT + CNN & NLP + GRU)/optimized essemble model experiment/tuned GRU keras model/V3/gru_best.pt",
+  "tokenizer": "base essemble model experiment #1 (BERT + CNN & NLP + GRU)/optimized essemble model experiment/tuned GRU keras model/V3/gru_tokenizer.json",
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.138494632746044,
+      "val_loss": 1.0938712358474731,
+      "val_acc": 0.4666666666666667,
+      "val_macro_f1": 0.46778228532792426
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.034534426111924,
+      "val_loss": 1.0832804441452026,
+      "val_acc": 0.43333333333333335,
+      "val_macro_f1": 0.4350000543614165
+    }
+  ],
+  "search": {
+    "n_trials": 2,
+    "method": "random search",
+    "seed": 42,
+    "space": {
+      "vocab_size": [
+        10000,
+        20000,
+        30000
+      ],
+      "max_len": [
+        40,
+        50,
+        64,
+        80
+      ],
+      "embed_dim": [
+        64,
+        128,
+        200,
+        256
+      ],
+      "hidden_dim": [
+        64,
+        128,
+        192,
+        256
+      ],
+      "num_layers": [
+        1,
+        2
+      ],
+      "bidirectional": [
+        false,
+        true
+      ],
+      "pooling": [
+        "last",
+        "meanmax"
+      ],
+      "dropout": [
+        0.0,
+        0.2,
+        0.3,
+        0.5
+      ],
+      "batch_size": [
+        16,
+        32,
+        64
+      ],
+      "weight_decay": [
+        0.0,
+        1e-05,
+        0.0001
+      ],
+      "class_weight": [
+        null,
+        "balanced"
+      ],
+      "grad_clip": [
+        0.0,
+        1.0
+      ]
+    },
+    "lr_range": [
+      0.0001,
+      0.005
+    ]
+  }
+}

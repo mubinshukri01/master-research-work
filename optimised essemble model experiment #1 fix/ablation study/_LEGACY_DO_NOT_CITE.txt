@@ -1,0 +1,50 @@
+LEGACY RESULTS - AFFECTED BY DATA LEAKAGE
+=========================================
+
+The numbers in this folder (accuracy ~0.85-0.87) are inflated by train/test
+contamination. They must not be cited.
+
+WHAT WENT WRONG
+---------------
+These results came from "Experiment #1 3 way split V1.py" / "V2.py", which build
+their own partition:
+
+    train_test_split(indices, y, test_size=0.4, random_state=42, stratify=y)
+
+But the branch checkpoints they load - gru_keras10.pt and cnn_bert10.pt - were
+trained by scripts that had ALREADY made their own, unrelated partition:
+
+    train_test_split(texts, y, test_size=0.15, random_state=42, stratify=y)
+
+The two splits are independent draws over the same 9,835 rows. Roughly 85% of
+the rows that land in this folder's "test" set were in the branches' training
+set. The models are being scored on data they memorised, which is why accuracy
+jumps from ~0.63 to ~0.86.
+
+THE FIX
+-------
+redo/split_generator.py writes ONE canonical partition
+(redo/canonical_dataset.csv + redo/splits.npz, 60/20/10/10, seed 42) and asserts
+zero pairwise overlap between train / val / cal / test. Every corrected script
+loads that file instead of splitting.
+
+WHERE THE HONEST NUMBERS ARE
+----------------------------
+    ../result 4 way V2/Optimized_Ensemble_Results.xlsx
+        Experiment #1 4 way split V2.py, canonical split -> 0.6250 accuracy
+
+    ../../RESULTS_CONSOLIDATED.xlsx
+        sheet "01 Headline (leakage-safe)" - every comparable result
+        sheet "04 Legacy (do not cite)"    - every affected result, incl. these
+
+NOTE ON THE 3-WAY vs 4-WAY ABLATION
+-----------------------------------
+The 3-way/4-way comparison in this folder is not salvageable as-is: both arms
+are contaminated, so the ~1-2% gap it reports between them is noise on top of
+leakage, not evidence that the 4-way split helps. Only the 4-way arm has been
+re-run on the canonical split. To make the ablation citable, the 3-way arm would
+need a canonical 60/30/10 partition generated the same way.
+
+The corresponding sheets in "Mubin Master Finalize experiment.xlsx"
+("Performance optimized ensembled", "ablation study performance",
+"Ablation study sentiment") carry these same leaked numbers.

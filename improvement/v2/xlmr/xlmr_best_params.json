@@ -1,0 +1,31 @@
+{
+  "branch": "xlmr",
+  "best_val_macro_f1": 0.5664800521828943,
+  "best_epoch": 1,
+  "params": {
+    "seed": 42,
+    "encoder": "xlm-roberta-base",
+    "max_len": 64,
+    "n_filters": 128,
+    "kernel_sizes": [
+      3,
+      5
+    ],
+    "dropout": 0.3464704583099741,
+    "lr": 1.9956529392808402e-05,
+    "weight_decay": 0.0006796578090758161,
+    "batch": 32,
+    "freeze_embeddings": true,
+    "unfrozen_layers": 4,
+    "loss": "focal",
+    "gamma": 2.049512863264476
+  },
+  "n_trials": 1,
+  "epochs_per_trial": 1,
+  "label_names": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "smoke": true
+}

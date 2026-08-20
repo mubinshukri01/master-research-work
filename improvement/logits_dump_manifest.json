@@ -1,0 +1,26 @@
+{
+  "label_names": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "num_classes": 3,
+  "sizes": {
+    "val": 1967,
+    "cal": 983,
+    "test": 984
+  },
+  "gru_ckpt": "c:\\Users\\MUBIN\\OneDrive - Universiti Teknologi Malaysia (UTM)\\Master\\Final experiment\\base essemble model experiment #1 (BERT + CNN & NLP + GRU)\\optimized essemble model experiment\\epoch GRU keras model\\epoch Version 2\\gru_best.pt",
+  "cnn_ckpt": "c:\\Users\\MUBIN\\OneDrive - Universiti Teknologi Malaysia (UTM)\\Master\\Final experiment\\base essemble model experiment #1 (BERT + CNN & NLP + GRU)\\optimized essemble model experiment\\epoch CNN BERT model\\epoch Version 2\\cnn_bert_best.pt",
+  "bert_name": "bert-base-cased",
+  "max_len": 50,
+  "vocab": 20000,
+  "verification": {
+    "base_alpha_cnn": 0.6,
+    "recomputed_accuracy": 0.6341463414634146,
+    "recomputed_macro_f1": 0.6218426525678767,
+    "expected_accuracy": 0.634146,
+    "expected_macro_f1": 0.621843,
+    "passed": true
+  }
+}

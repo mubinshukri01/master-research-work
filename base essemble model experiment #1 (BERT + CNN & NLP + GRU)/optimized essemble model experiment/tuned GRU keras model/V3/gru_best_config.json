@@ -1,0 +1,153 @@
+{
+  "branch": "GRU + Keras Word Tokenizer",
+  "trial": 2,
+  "config": {
+    "vocab_size": 30000,
+    "max_len": 80,
+    "embed_dim": 200,
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "bidirectional": false,
+    "pooling": "meanmax",
+    "dropout": 0.2,
+    "batch_size": 16,
+    "weight_decay": 0.0001,
+    "class_weight": "balanced",
+    "grad_clip": 1.0,
+    "lr": 0.002499466392531643,
+    "rnn_dropout": 0.2
+  },
+  "num_classes": 3,
+  "label_names": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "val_macro_f1": 0.5811338110658805,
+  "val_acc": 0.5831215048296898,
+  "val_loss": 0.9238957911729813,
+  "best_epoch": 3,
+  "checkpoint": "base essemble model experiment #1 (BERT + CNN & NLP + GRU)/optimized essemble model experiment/tuned GRU keras model/V3\\gru_best.pt",
+  "tokenizer": "base essemble model experiment #1 (BERT + CNN & NLP + GRU)/optimized essemble model experiment/tuned GRU keras model/V3\\gru_tokenizer.json",
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.9947016260165186,
+      "val_loss": 0.9349182695150375,
+      "val_acc": 0.5368581596339603,
+      "val_macro_f1": 0.5375766070526352
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.8000135659202328,
+      "val_loss": 0.9032276794314384,
+      "val_acc": 0.5632943568886629,
+      "val_macro_f1": 0.5637452719450136
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.5972071185829194,
+      "val_loss": 0.9238957911729813,
+      "val_acc": 0.5831215048296898,
+      "val_macro_f1": 0.5811338110658805
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.3976184413604297,
+      "val_loss": 1.145253598690033,
+      "val_acc": 0.5739705134722929,
+      "val_macro_f1": 0.5672636845080695
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.2639467209769378,
+      "val_loss": 1.4576855897903442,
+      "val_acc": 0.5882053889171327,
+      "val_macro_f1": 0.5797186391920683
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.18841478275008963,
+      "val_loss": 1.5777800232172012,
+      "val_acc": 0.5709201830198272,
+      "val_macro_f1": 0.5662674828777015
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.15281623232917896,
+      "val_loss": 1.8897377699613571,
+      "val_acc": 0.5729537366548043,
+      "val_macro_f1": 0.5666599513948126
+    }
+  ],
+  "search": {
+    "n_trials": 25,
+    "method": "random search",
+    "seed": 42,
+    "space": {
+      "vocab_size": [
+        10000,
+        20000,
+        30000
+      ],
+      "max_len": [
+        40,
+        50,
+        64,
+        80
+      ],
+      "embed_dim": [
+        64,
+        128,
+        200,
+        256
+      ],
+      "hidden_dim": [
+        64,
+        128,
+        192,
+        256
+      ],
+      "num_layers": [
+        1,
+        2
+      ],
+      "bidirectional": [
+        false,
+        true
+      ],
+      "pooling": [
+        "last",
+        "meanmax"
+      ],
+      "dropout": [
+        0.0,
+        0.2,
+        0.3,
+        0.5
+      ],
+      "batch_size": [
+        16,
+        32,
+        64
+      ],
+      "weight_decay": [
+        0.0,
+        1e-05,
+        0.0001
+      ],
+      "class_weight": [
+        null,
+        "balanced"
+      ],
+      "grad_clip": [
+        0.0,
+        1.0
+      ]
+    },
+    "lr_range": [
+      0.0001,
+      0.005
+    ]
+  }
+}

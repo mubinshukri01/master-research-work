@@ -1,0 +1,27 @@
+LEGACY RESULTS - AFFECTED BY DATA LEAKAGE
+=========================================
+
+DRSE_ManualAlpha_TestResults.xlsx and the eleven "sentiment distribution
+alpha *.png" figures came from the pre-canonical 3-way pipeline
+("Experiment #1 3 way split V1.py"), which made its own train/test partition
+while loading branch checkpoints that had been trained on a different, unrelated
+partition of the same rows.
+
+The alpha sweep in that workbook peaks at accuracy 0.7236 (alpha = 0.8). That
+figure is contaminated. On the canonical split the same family of models scores
+around 0.62-0.63.
+
+The SHAPE of the alpha curve is still informative - performance rises steeply to
+about alpha 0.5-0.6 and then flattens, which is the qualitative finding that the
+CNN-BERT branch carries most of the signal. That observation survives. The
+absolute numbers do not.
+
+For a citable alpha analysis on the canonical split, use instead:
+
+    ../alpha_grid_search_results.xlsx
+    ../result 4 way V2/alpha_grid_search_results.xlsx
+    ../../improvement/figures/alpha_curve_with_ci.png   (with confidence intervals)
+    ../../improvement/Chapter4_Final_Tables.xlsx        (sheet "T5 CV Selection")
+
+See ../../README.md for the full explanation of the two eras, and
+../../RESULTS_CONSOLIDATED.xlsx sheet "04 Legacy (do not cite)".

@@ -1,0 +1,49 @@
+# ---------------------------------------------------------------
+# Model checkpoints
+#
+# 91 .pt files totalling 29.1 GB - 56 of them individually exceed
+# GitHub's 100 MB hard limit. They are re-derivable by running the
+# training scripts, so they are deliberately not tracked. Everything
+# else in this repo is ~19 MB.
+#
+# If you ever need them versioned, use Git LFS with a paid data pack
+# (the free tier is 1 GB) or an external artifact store - do not try
+# to commit them directly.
+# ---------------------------------------------------------------
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.safetensors
+
+# ---------------------------------------------------------------
+# Smoke-test output
+#
+# Written by run_baselines_canonical.py --smoke: 200 training rows,
+# 1 epoch, results meaningless. This folder already has one bad
+# experience with fake results sitting at real-looking paths, so
+# smoke output never gets committed.
+# ---------------------------------------------------------------
+results_SMOKE_DO_NOT_CITE/
+
+# Claude Code session scaffolding (contains working notes, not project content)
+.claude-handoff/
+.claude/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Logs and scratch
+*.log
+.wtest
+
+# Windows / OneDrive / Office artefacts
+desktop.ini
+Thumbs.db
+ehthumbs.db
+~$*
+*.tmp

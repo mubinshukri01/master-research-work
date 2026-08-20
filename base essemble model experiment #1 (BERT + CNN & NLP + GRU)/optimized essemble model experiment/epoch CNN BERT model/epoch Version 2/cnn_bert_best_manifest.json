@@ -1,0 +1,6 @@
+{
+  "best_epochs": 5,
+  "validation_loss": 1.272053408913496,
+  "source_checkpoint": "base essemble model experiment #1 (BERT + CNN & NLP + GRU)/optimized essemble model experiment/epoch CNN BERT model/epoch Version 2/epoch_5/cnn_bert5.pt",
+  "canonical_checkpoint": "cnn_bert_best.pt"
+}

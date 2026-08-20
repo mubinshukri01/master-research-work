@@ -1,0 +1,12 @@
+{
+  "T_gru": 3.9184579104401123,
+  "T_cnn": 3.309946496614782,
+  "stacker_config": {
+    "rich": true,
+    "C": 0.2
+  },
+  "nested_cv_mean": 0.6001725041531768,
+  "nested_cv_se": 0.015320402000573738,
+  "headline_model": "S1 stacker (cal only)",
+  "fusion_ceiling_macro_f1": 0.6539061925868247
+}
