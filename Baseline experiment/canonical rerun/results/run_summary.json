@@ -1,0 +1,16 @@
+{
+  "split": {
+    "train": 5901,
+    "val": 1967,
+    "cal": 983,
+    "test": 984
+  },
+  "labels": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "class_weighted": true,
+  "epochs_searched": 10,
+  "models": 8
+}
