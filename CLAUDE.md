@@ -111,18 +111,51 @@ across all 8. `LSTM.py` really does build an `nn.LSTM`.
 **Path note:** the baseline scripts' dataset and `Phase 3/` output folder live under
 `Master/initial experiment/`, not here. They are relocated copies, not broken.
 
-### Stage 1 status
+### Stage 1 status: COMPLETE
 
 - [x] Audit complete, findings verified
-- [ ] `Baseline experiment/canonical rerun/common_baseline.py`
-- [ ] `Baseline experiment/canonical rerun/run_baselines_canonical.py`
-- [ ] Run all 8 on the PC (~30 min, GPU)
-- [ ] Extend `consolidate_results.py` with a `0. Baseline (canonical)` stage
-- [ ] Fix `BERT + X` → `BERT Tokenizer + X` labelling
+- [x] `Baseline experiment/canonical rerun/common_baseline.py`
+- [x] `Baseline experiment/canonical rerun/run_baselines_canonical.py`
+- [x] All 8 run on the canonical split (laptop CPU, class-weighted, 10 epochs searched)
+- [x] `consolidate_results.py` gained a `0. Baseline (canonical)` stage
+- [x] `BERT + X` → `BERT Tokenizer + X` labelling fixed
 
-**Open decision:** class weighting changes the experiment rather than merely fixing
-it. Run one model both ways and show the gap before applying across all 8.
+**The reference floor** (984-row canonical test set, epoch selected on val):
+
+| Model | Accuracy | Macro-F1 |
+|---|---|---|
+| Keras Word Tokenizer + LSTM | 0.5996 | **0.5896** |
+| BERT Tokenizer + GRU | 0.5823 | 0.5737 |
+| Keras Word Tokenizer + GRU | 0.5843 | 0.5721 |
+| BERT Tokenizer + CNN | 0.5854 | 0.5702 |
+| Keras Word Tokenizer + CNN | 0.5925 | 0.5696 |
+| BERT Tokenizer + LSTM | 0.5711 | 0.5619 |
+| Keras Word Tokenizer + RNN | 0.5254 | 0.5167 |
+| BERT Tokenizer + RNN | 0.4421 | 0.4385 |
+
+Best ensemble (tuned V3) is 0.6664 → **+0.0768 macro-F1 over the best single model.**
+
+**Class weighting — decided, and the reason matters.** Weighted vs unweighted on
+Keras+GRU: macro-F1 0.5721 vs 0.5688 (+0.0033), accuracy 0.5843 vs 0.5864
+(−0.0021). That is within single-seed noise. The 8 numbers above use weighted loss
+for **consistency with the ensemble branches** (`class_weight: balanced`), not
+because it measurably helps. Do not claim an improvement from it.
+
+**Two findings to carry into Stage 2:**
+1. The corrected Keras+GRU baseline (0.5721) beats the thesis's V2 GRU *branch*
+   (0.5459) at the same architecture. The delta is the methodology fix — weighted
+   loss plus epoch selection on val, neither of which the branches had. Supports
+   the existing "branch quality is the binding constraint" conclusion and implies
+   recoverable headroom.
+2. Neutral is the weak class at baseline too (recall 0.4942 vs 0.6095 negative /
+   0.6743 positive), so the neutral collapse is **inherited, not introduced by
+   fusion.**
 
 Originals in `Baseline experiment/` are **not** to be modified — they are the
 provenance record for the numbers currently in the thesis. Corrected versions live
 in `canonical rerun/`.
+
+### Next: Stage 2 (base ensemble)
+
+`experiment V1/V2/V3` plus the branch trainers. Not started. Ask the user what each
+version was meant to establish before auditing, same as Stage 1.

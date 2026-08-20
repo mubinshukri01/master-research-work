@@ -189,6 +189,16 @@ def main():
         # Settles the one open decision in the plan: does weighting the
         # loss actually help macro-F1 enough to justify departing from
         # the original experiment?
+        #
+        # Writes to its own directory. This mode trains the same model
+        # twice under different loss settings, so pointing it at
+        # results/ would overwrite a committed result with the losing
+        # half of a comparison.
+        globals()["OUT_DIR"] = os.path.join(
+            os.path.dirname(OUT_DIR), "results_weighting_comparison"
+        )
+        os.makedirs(OUT_DIR, exist_ok=True)
+        print(f"comparison output -> {OUT_DIR}")
         fam, head = "keras", "gru"
         ids, lengths, vocab = inputs[fam]
         out = {}

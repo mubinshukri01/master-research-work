@@ -47,3 +47,8 @@ Thumbs.db
 ehthumbs.db
 ~$*
 *.tmp
+
+# Half-record: this mode trains one model twice and the second write
+# wins, so the directory never holds both sides of the comparison.
+# The numbers are recorded in CLAUDE.md instead.
+results_weighting_comparison/
